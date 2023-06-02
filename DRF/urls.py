@@ -17,11 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework.authtoken.views import obtain_auth_token
-from DRF.create_custome_auth_token import CustomAuthToken
+
+#jwtsimple token
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
+from django.urls import path
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Authtication_Token.urls')),
-    path('gettoken/',CustomAuthToken.as_view())
+
+    # path('gettoken/',CustomAuthToken.as_view()), #removed auth.token
+
+    path('gettoken/',TokenObtainPairView.as_view(),name="token_obtain_pair"),
+    path('refreshtoken/',TokenRefreshView.as_view(),name="token_refresh"),
+    path('verifytoken/',TokenVerifyView.as_view(),name="verify_token")
+
 ]
