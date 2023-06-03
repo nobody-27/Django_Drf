@@ -20,7 +20,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 #jwtsimple token
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
-from django.urls import path
 
 
 
@@ -32,6 +31,9 @@ urlpatterns = [
 
     path('gettoken/',TokenObtainPairView.as_view(),name="token_obtain_pair"),
     path('refreshtoken/',TokenRefreshView.as_view(),name="token_refresh"),
-    path('verifytoken/',TokenVerifyView.as_view(),name="verify_token")
+    path('verifytoken/',TokenVerifyView.as_view(),name="verify_token"),
+
+
+    path('',include('Json_Web_Token.urls'))
 
 ]
