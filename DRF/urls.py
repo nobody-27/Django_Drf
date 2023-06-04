@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework.authtoken.views import obtain_auth_token
-
+from django.conf import settings
+from django.conf.urls.static import static
 #jwtsimple token
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
 
@@ -34,6 +35,9 @@ urlpatterns = [
     path('verifytoken/',TokenVerifyView.as_view(),name="verify_token"),
 
 
-    path('',include('Json_Web_Token.urls'))
+    path('',include('Json_Web_Token.urls')),
 
-]
+    #example nested serializer
+    path('api/v1/', include('Nested_Serializer_Exmp.urls')),
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
